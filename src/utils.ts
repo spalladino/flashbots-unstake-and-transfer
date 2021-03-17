@@ -4,8 +4,8 @@ import { BigNumber } from "ethers";
 export const ETHER = BigNumber.from(10).pow(18);
 export const GWEI = BigNumber.from(10).pow(9);
 
-export async function checkSimulation(flashbotsProvider: FlashbotsBundleProvider, signedBundle: Array<string>): Promise<BigNumber> {
-  const simulationResponse = await flashbotsProvider.simulate(signedBundle, "latest");
+export async function checkSimulation(flashbotsProvider: FlashbotsBundleProvider, signedBundle: Array<string>, timestamp?: number): Promise<BigNumber> {
+  const simulationResponse = await flashbotsProvider.simulate(signedBundle, "latest", undefined, timestamp);
 
   for (let i = 0; i < simulationResponse.results.length; i++) {
     const txSimulation = simulationResponse.results[i]
@@ -26,19 +26,17 @@ export async function checkSimulation(flashbotsProvider: FlashbotsBundleProvider
 }
 
 export async function printTransactions(bundleTransactions: Array<FlashbotsBundleTransaction>, signedBundle: Array<string>): Promise<void> {
-  console.log("--------------------------------")
-  console.log(
+  console.log("--------------------------------\n" +
     (await Promise.all(
       bundleTransactions.map(async (bundleTx, index) =>
-        `TX #${index}: ${await bundleTx.signer.getAddress()} => ${bundleTx.transaction.to} : ${bundleTx.transaction.data}`)))
+        `TX #${index} (${bundleTx.transaction.nonce ?? '?'}): ${await bundleTx.signer.getAddress()} => ${bundleTx.transaction.to}`)))
       .join("\n"))
 
-  console.log("--------------------------------")
-  console.log(
-    (await Promise.all(
-      signedBundle.map(async (signedTx, index) =>
-        `TX #${index}: ${signedTx}`)))
-      .join("\n"))
+  // console.log("--------------------------------\n" +
+  //   (await Promise.all(
+  //     signedBundle.map(async (signedTx, index) =>
+  //       `TX #${index}: ${signedTx}`)))
+  //     .join("\n"))
 
   console.log("--------------------------------")
 }
