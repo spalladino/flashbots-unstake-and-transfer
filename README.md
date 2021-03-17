@@ -1,5 +1,10 @@
 searcher-sponsored-tx
 =======================
+
+**Forked from [flashbots org](https://github.com/flashbots/searcher-sponsored-tx/) and tweaked to an `UnstakeAndTransfer` use case**
+
+---
+
 This repository contains a simple Flashbots "searcher" for submitting a transaction from account X, but paying for the transaction from account Y. This is accomplished by submitting a Flashbots transaction bundle, with the first transaction(s) executing from account X, and the last, single transaction calling a contract which verifies the early transactions ran successfully, then pays the miner.
 
 We hope you will use this repository as an example of how to integrate Flashbots into your own Flashbot searcher (bot). For more information, see the [Flashbots Searcher FAQ](https://github.com/flashbots/pm/blob/main/guides/flashbots-alpha.md)
