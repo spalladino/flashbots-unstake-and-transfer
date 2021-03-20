@@ -1,7 +1,7 @@
 searcher-sponsored-tx
 =======================
 
-**Forked from [flashbots org](https://github.com/flashbots/searcher-sponsored-tx/) and tweaked to an `UnstakeAndTransfer` engine**
+**Forked from [flashbots org](https://github.com/flashbots/searcher-sponsored-tx/) and tweaked to add an `UnstakeAndTransferERC20` engine**
 
 The `UnstakeAndTransfer` engine is similar to the `TransferERC20`, but it sends a `withdraw` transaction to a staking contract before transferring the tokens. It was used for rescuing tokens from a compromised account which had tokens locked up in [this contract](https://etherscan.io/address/0xe8f063c4dc60b2f6c2c900d870ddcdae7daab7f6). The relevant addresses for this use case are hardcoded in a `src/settings` file, make sure to change them for your own run.
 
