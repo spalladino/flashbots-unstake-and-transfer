@@ -1,7 +1,13 @@
 searcher-sponsored-tx
 =======================
 
-**Forked from [flashbots org](https://github.com/flashbots/searcher-sponsored-tx/) and tweaked to an `UnstakeAndTransfer` use case**
+**Forked from [flashbots org](https://github.com/flashbots/searcher-sponsored-tx/) and tweaked to an `UnstakeAndTransfer` engine**
+
+The `UnstakeAndTransfer` engine is similar to the `TransferERC20`, but it sends a `withdraw` transaction to a staking contract before transferring the tokens. It was used for rescuing tokens from a compromised account which had tokens locked up in [this contract](https://etherscan.io/address/0xe8f063c4dc60b2f6c2c900d870ddcdae7daab7f6). The relevant addresses for this use case are hardcoded in a `src/settings` file, make sure to change them for your own run.
+
+This fork also adds a `burner` script that can be used for burning all ETH sent to the compromised account, so a hacker cannot send funds to it to pay for the transactions used to move the tokens elsewhere. By keeping the `burner` running, you make sure that the only transactions that can be sent from the compromised account are txs with zero gas price - the ones that are sent as part as your flashbot bundle. This prevents the hacker from doing any action, giving time for your flashbot bundle to be mined. You can run the burner with `yarn burn`, using the same env vars for configuration as the main script.
+
+:warning: **Please only run this if you understand what you are doing**. You risk sending the funds you want to rescue to a wrong address or burning your own ETH, if you incorrectly set up these scripts. Last, keep in mind that this is not bulletproof. If your private key was compromised, the hacker has the same opportunities as you do, and they could use this very script to steal your funds.
 
 ---
 
@@ -20,7 +26,7 @@ Environment Variables
 - ETHEREUM_RPC_URL - Ethereum RPC endpoint. Can not be the same as FLASHBOTS_RPC_URL
 - PRIVATE_KEY_ZERO_GAS - Private key for the compromised Ethereum EOA that owns assets that needs to be transferred
 - PRIVATE_KEY_DONOR - Private key for an account that has ETH that will be used to fund the miner for the "ZERO_GAS" transactions 
-- FLASHBOTS_KEY_ID / FLASHBOTS_SECRET - Flashbots submissions requires an API key. [Apply for an API key here](https://docs.google.com/forms/d/e/1FAIpQLSd4AKrS-vcfW1X-dQvkFY73HysoKfkhcd-31Tj8frDAU6D6aQ/viewform) 
+- FLASHBOTS_SECRET - Private key with no funds used to sign bundles (can be a random key)
 - RECIPIENT - Ethereum EOA to receive assets from ZERO_GAS account
 
 Setting Miner Reward
@@ -37,8 +43,8 @@ Selecting a different "engine"
 ==============================
 This system can operate against different protocols by swapping a new "engine" class that adheres to "Base" functionality in the `main()` function. Available engines:
 - `TransferERC20`
+- `UnstakeAndTransferERC20`
 - `CryptoKitties`
-  
 
 An engine accepts relevant parameters during construction and provides functions to retrieve transaction descriptions to be passed in to Flashbots. Selecting and configuring a different engine requires directly modifying the source, uncommenting the engine and setting the necessary variables.
 
