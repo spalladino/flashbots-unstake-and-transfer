@@ -374,10 +374,10 @@
     "@ethersproject/properties" "^5.0.7"
     "@ethersproject/strings" "^5.0.8"
 
-"@flashbots/ethers-provider-bundle@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@flashbots/ethers-provider-bundle/-/ethers-provider-bundle-0.1.2.tgz#86807fd13e37c759144586a1e9266665f958cab7"
-  integrity sha512-q20/rZT/iUzWa2N1ILrpYxQwcqZWJfJOGL+6SBOHytZ/IQXTExb8BY/39XCtzAQevt2oN2NzrENyvk2Op4CFDw==
+"@flashbots/ethers-provider-bundle@^0.2.0":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@flashbots/ethers-provider-bundle/-/ethers-provider-bundle-0.2.1.tgz#e1a5bc7b1c9f25e8c16799f1c1285a4d3809cea1"
+  integrity sha512-GdOCINGat3kzkq0pkGkEzrsIWWngpQyFFGOPv2ewR8Uswqzl5Ho0bcYW9mIfjOQ1hH0450LZ9PTzJppgEUX4fw==
   dependencies:
     ts-node "^9.1.0"
     typescript "^4.1.2"
