@@ -1,5 +1,7 @@
+**OUTDATED:** This script uses an older version of the flashbots RPC endpoint, and will not work as is today.
+
 searcher-sponsored-tx
-=======================
+=====================
 
 **Forked from [flashbots org](https://github.com/flashbots/searcher-sponsored-tx/) and tweaked to add an `UnstakeAndTransferERC20` engine**
 
