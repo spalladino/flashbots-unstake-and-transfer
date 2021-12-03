@@ -1,4 +1,6 @@
-**OUTDATED:** This script uses an older version of the flashbots RPC endpoint, and will not work as is today.
+:warning: **OUTDATED:** This script uses an older version of the flashbots RPC endpoint, and will not work as is today. :warning:
+
+---
 
 searcher-sponsored-tx
 =====================
